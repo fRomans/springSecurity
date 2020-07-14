@@ -21,7 +21,7 @@ import web.service.UserServiceImp;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserServiceImp userDetailsService;
+    UserService userServiceImp;
 
 //    @Override
 //    public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider
                 = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userServiceImp);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }

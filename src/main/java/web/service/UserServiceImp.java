@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService {
 
    @Autowired
    private UserDao userDao;
@@ -47,7 +47,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
    public void updateUser(User user)  {
       userDao.updateUser(user);
    }
-
 
    @Override
    public UserDetails loadUserByUsername(String username) {
