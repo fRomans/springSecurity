@@ -31,9 +31,9 @@ public class UpdateController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String getUpdateUser(@ModelAttribute User user, Model model) {
         User userUpdate = service.getUserById(user.getId());
-        userUpdate.setFirstName(user.getFirstName());
-        userUpdate.setLastName(user.getLastName());
-        userUpdate.setEmail(user.getEmail());
+        userUpdate.setName(user.getName());
+        userUpdate.setPassword(user.getPassword());
+        userUpdate.setMoney(user.getMoney());
         service.updateUser(userUpdate);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
