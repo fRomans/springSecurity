@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import web.security.AuthProviderImpl;
 import web.service.UserService;
 import web.service.UserServiceImp;
 
@@ -22,11 +23,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userServiceImp;
+    @Autowired
+    AuthProviderImpl authProvider;
 
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
-//    }
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+       // auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
+
+            auth.authenticationProvider(authProvider);
+
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

@@ -27,7 +27,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User u where u.firstName = :paramName ");
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User u where u.name = :paramName ");
         query.setParameter("paramName", name);
         return query.getSingleResult();
     }

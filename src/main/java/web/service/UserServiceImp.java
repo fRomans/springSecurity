@@ -29,6 +29,14 @@ public class UserServiceImp implements UserService {
       User user = userDao.getUserById(id);
       return user;
    }
+
+   @Transactional
+   @Override
+   public User getUserByName(String name) {
+      User user = userDao.getUserByName(name);
+      return user;
+   }
+
    @Transactional(readOnly = true)
    @Override
    public List<User> getListUsers() {
@@ -48,6 +56,7 @@ public class UserServiceImp implements UserService {
       userDao.updateUser(user);
    }
 
+   @Transactional
    @Override
    public UserDetails loadUserByUsername(String username) {
       User user = userDao.getUserByName(username);
