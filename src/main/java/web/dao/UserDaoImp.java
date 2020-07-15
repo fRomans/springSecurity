@@ -29,7 +29,13 @@ public class UserDaoImp implements UserDao {
     public User getUserByName(String name) {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User u where u.name = :paramName ");
         query.setParameter("paramName", name);
-        return query.getSingleResult();
+        User user = null;
+       try {
+            user = query.getSingleResult();
+       }catch (Exception e){
+           System.out.println("Ошибка в запросе" + e);
+       }
+        return user;
     }
 
     @Override
