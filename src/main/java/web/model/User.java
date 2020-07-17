@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @Column(name = "money")
     private Long money;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user",fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public User() {
@@ -48,12 +48,18 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
+    @Override
+    public String getUsername() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -68,7 +74,8 @@ public class User implements UserDetails {
         this.money = money;
     }
 
-    public Set<Role> getRoles() {
+    @Override
+    public Collection<Role> getAuthorities() {
         return roles;
     }
 
@@ -81,40 +88,26 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(id, name, password, money);
     }
-///     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    //todo    -- начало реализации методов отсюда
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

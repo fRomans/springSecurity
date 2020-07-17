@@ -25,17 +25,25 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
+//    @Override
+//    public User getUserByName(String name) {
+//        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User u where u.name = :paramName ");
+//        query.setParameter("paramName", name);
+//        User user = query.getSingleResult();
+//        return user;
+//    }
+
     @Override
     public User getUserByName(String name) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User u where u.name = :paramName ");
-        query.setParameter("paramName", name);
-        User user = null;
-       try {
-            user = query.getSingleResult();
-       }catch (Exception e){
-           System.out.println("Ошибка в запросе" + e);
-       }
+        String sql = "select u from User u where u.name= :paramName";
+
+        User user = (User) sessionFactory
+                .getCurrentSession().createQuery(sql)
+                .setParameter("paramName", name)
+                .uniqueResult();
+
         return user;
+
     }
 
     @Override

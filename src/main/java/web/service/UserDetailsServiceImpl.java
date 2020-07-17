@@ -12,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserDetailsServiceImpl implements UserService {
 
-   @Autowired
-   private UserDao userDao;
+   private final UserDao userDao;
+
+   public UserDetailsServiceImpl(UserDao userDao) {
+      this.userDao = userDao;
+   }
 
    @Transactional
    @Override
