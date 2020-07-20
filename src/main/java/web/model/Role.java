@@ -3,8 +3,8 @@ package web.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roleSS")
@@ -26,7 +26,7 @@ public class Role implements GrantedAuthority  {
     @JoinTable (name="users_roles",
             joinColumns=@JoinColumn (name="role_id"),
             inverseJoinColumns=@JoinColumn(name="user_id"))
-    private List<User> users;
+    private Set<User> users;
 
     public Role() {
     }

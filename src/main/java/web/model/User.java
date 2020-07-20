@@ -32,16 +32,16 @@ public class User implements UserDetails {
 //    @OneToMany(mappedBy="user",fetch = FetchType.EAGER)
 //    private Set<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable (name="users_roles",
-            joinColumns=@JoinColumn (name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id"))
-    private List<Role> roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> rolesfield;
 
     public User() {
     }
 
-    public User(String name,String password, Long money) {
+    public User(String name, String password, Long money) {
         this.name = name;
         this.password = password;
         this.money = money;
@@ -83,11 +83,11 @@ public class User implements UserDetails {
 
     @Override
     public Collection<Role> getAuthorities() {
-        return roles;
+        return rolesfield;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Set<Role> roles) {
+        this.rolesfield = roles;
     }
 
 
@@ -126,7 +126,7 @@ public class User implements UserDetails {
                 Objects.equals(name, user.name) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(money, user.money) &&
-                Objects.equals(roles, user.roles);
+                Objects.equals(rolesfield, user.rolesfield);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class User implements UserDetails {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", money=" + money +
-                ", roles=" + roles +
+                ", roles=" + rolesfield +
                 '}';
     }
 }
