@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roleSS")
-public class Role implements GrantedAuthority {
+public class Role implements GrantedAuthority  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    public String getRole() {
+    @Override
+    public String getAuthority() {
         return role;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
@@ -59,9 +59,5 @@ public class Role implements GrantedAuthority {
         return Objects.hash(id, role);
     }
 
-    @Override
-    public String getAuthority() {//    todo    -- начало реализации метода отсюда
 
-        return null;
-    }
 }
