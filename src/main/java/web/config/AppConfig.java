@@ -1,6 +1,8 @@
 package web.config;
 
 
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import web.model.Role;
 import web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -23,6 +28,7 @@ public class AppConfig {
     @Autowired
     private Environment env;
 
+
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -34,26 +40,27 @@ public class AppConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setDataSource(getDataSource());
+    public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() {
 
-        Properties props = new Properties();
-        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 
-        factoryBean.setHibernateProperties(props);
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setShowSql(Boolean.parseBoolean(env.getProperty("hibernate.show_sql")));
+        adapter.setGenerateDdl(Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto")));
+        adapter.setDatabasePlatform(env.getProperty("hibernate.dialect"));
 
-        //аннотированные классы сущностей для регистрации в этом Hibernate SessionFactory
-        factoryBean.setAnnotatedClasses(User.class, Role.class);//указывать вместе, а то не будет работать
-        return factoryBean;
+        return adapter;
     }
 
     @Bean
-    public HibernateTransactionManager getTransactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(getSessionFactory().getObject());
-        return transactionManager;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactory.setDataSource(getDataSource());
+        entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
+        entityManagerFactory.setPackagesToScan("web.model");
+        
+        return entityManagerFactory;
     }
+
+
 }
