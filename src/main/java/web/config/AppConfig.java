@@ -58,7 +58,7 @@ public class AppConfig {
         entityManagerFactory.setDataSource(getDataSource());
         entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
         entityManagerFactory.setPackagesToScan("web.model");
-        
+
         return entityManagerFactory;
     }
 
