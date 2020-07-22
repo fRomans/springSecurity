@@ -25,7 +25,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         System.out.println("dssadsadsadsadasdsa");
         try {
           for (GrantedAuthority role: authentication.getAuthorities()){
-            if (role.getAuthority().equals("ROLE_ADMIN")){
+            if (role.getAuthority().equals("ADMIN")){
                 httpServletResponse.sendRedirect("/hello");
             }else if (role.getAuthority().equals("ROLE_USER")){
                 httpServletResponse.sendRedirect("/userView");

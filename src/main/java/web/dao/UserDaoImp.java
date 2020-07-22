@@ -29,7 +29,7 @@ public class UserDaoImp implements UserDao {
 
 
     @Override
-    public User getUserByName(String name) {
+    public User findByUsername(String name) {
         String sql = "select u from User u where u.name= :paramName";
 
         User user = (User) entityManager.createQuery(sql)

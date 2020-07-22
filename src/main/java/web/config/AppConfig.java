@@ -1,8 +1,11 @@
 package web.config;
 
 
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import web.model.Role;
 import web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +48,7 @@ public class AppConfig {
 
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(Boolean.parseBoolean(env.getProperty("hibernate.show_sql")));
-        adapter.setGenerateDdl(Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto")));
+        adapter.setGenerateDdl(true);//????????????????//Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto"))
         adapter.setDatabasePlatform(env.getProperty("hibernate.dialect"));
 
         return adapter;
@@ -60,6 +63,19 @@ public class AppConfig {
         entityManagerFactory.setPackagesToScan("web.model");
 
         return entityManagerFactory;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+
+        return transactionManager;
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
 

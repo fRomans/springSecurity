@@ -1,5 +1,6 @@
 package web.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import web.model.User;
 
@@ -13,7 +14,7 @@ public interface UserService extends UserDetailsService {
     void updateUser(User user);
     void deleteUser(Long id);
     User getUserById(long id);
-    User getUserByName(String name);
-   // void deleteUser(Long id);
+    UserDetails loadUserByUsername(String username);
+    // void deleteUser(Long id);
 
 }
