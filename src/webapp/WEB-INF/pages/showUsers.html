@@ -22,9 +22,9 @@
             <td th:text="${user.getMoney()}"></td>
             <td th:text="${user.getAuthorities()}"></td>
             <td>
-                <form action = "/admin/update" method="get" th:accept-charset="UTF-8">
+                <form action = "/admin/update" method="get" >
                     <input type="hidden" name="id" value="${user.getId()}">
-                    <input type="submit" th:value="Изменить"  style="float:left">
+                    <input type="submit" value="Изменить"  style="float:left">
                 </form>
                 <form action="/admin/delete" method="get">
                     <input type="hidden" name="id" value="${user.getId()}">

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import web.model.User;
 import web.service.UserService;
-
 import javax.servlet.http.HttpServlet;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class AddController extends HttpServlet {
     @Autowired
     private UserService service;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/add", method = RequestMethod.GET)
     public String getPage() {
         return "addUser";
     }

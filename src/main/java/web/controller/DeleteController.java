@@ -17,7 +17,7 @@ public class DeleteController {
     @Autowired
     private UserService service;
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
     public String getDeletePage() {
         return "deleteUser";
     }

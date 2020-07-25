@@ -3,6 +3,7 @@ package web.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +22,7 @@ public class UpdateController {
     private UserService service;
 
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/update", method = RequestMethod.GET,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String getPage(@RequestParam Long id, Model model) {
         User user = service.getUserById(id);
         model.addAttribute("user", user);
