@@ -22,11 +22,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
 
-        System.out.println("dssadsadsadsadasdsa");
         try {
           for (GrantedAuthority role: authentication.getAuthorities()){
-            if (role.getAuthority().equals("ADMIN")){
-                httpServletResponse.sendRedirect("/hello");
+            if (role.getAuthority().equals("ROLE_ADMIN")){
+                httpServletResponse.sendRedirect("/");
             }else if (role.getAuthority().equals("ROLE_USER")){
                 httpServletResponse.sendRedirect("/userView");
             }else {

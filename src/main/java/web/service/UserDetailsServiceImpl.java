@@ -1,6 +1,7 @@
 package web.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import web.dao.UserDao;
 import web.model.User;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserDetailsServiceImpl implements UserService {
+public class UserDetailsServiceImpl implements UserService, UserDetailsService {
 
    private final UserDao userDao;
 
@@ -61,10 +62,5 @@ public class UserDetailsServiceImpl implements UserService {
       return user;
    }
 
-//   @Transactional
-//   @Override
-//   public User findByUsername(String name) {
-//      User user = userDao.findByUsername(name);
-//      return user;
-//   }
+
 }

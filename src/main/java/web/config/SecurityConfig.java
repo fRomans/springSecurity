@@ -1,7 +1,7 @@
 package web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import web.config.handler.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,32 +12,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import web.service.UserService;
+import web.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserService userServiceImp;
-//    @Autowired
-//    AuthProviderImpl authProvider;
+    UserDetailsService userDetailsServiceImpl;
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-       //auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
-       auth.authenticationProvider(authenticationProvider());
-
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsServiceImpl = userDetailsService;
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider
-                = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userServiceImp);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+    @Autowired
+    public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+       // auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
