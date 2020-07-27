@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Список пользователей</title>
 </head>
 <body>
@@ -23,7 +22,7 @@
             <td th:text="${user.getAuthorities()}"></td>
             <td>
                 <form action = "/admin/update" method="get" >
-                    <input type="hidden" name="id" value="${user.getId()}">
+                    <input type="hidden" name="id" th:value="${user.getId()}">
                     <input type="submit" value="Изменить"  style="float:left">
                 </form>
                 <form action="/admin/delete" method="get">

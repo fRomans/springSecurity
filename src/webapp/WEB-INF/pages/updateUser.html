@@ -3,29 +3,30 @@
 <html lang="en" >
 <!--Content-Type: multipart/form-data; boundary=something-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Изменить данные пользователя</title>
 </head>
 <body>
 
 Редактировать пользователя
 
-<form action="/admin/update" method="post" enctype = "multipart / form-data>
-    <input type="hidden" name = "id" value="${user.id}">
-    <input type="text" name="name" value="${user.name}" placeholder=${user.name}>
-    <input type="text" name="password" value="${user.password}" placeholder=${user.password}>
-    <input type="text" name="money" value="${user.money}" placeholder=${user.money}>
-    <select  name="role"  size="1">
-        <option value="admin">admin</option>
-        <option  value="user">user</option>
-    <option selected="selected">${user.role}</option>
+<form action="/admin/update" method="post">
 
+    <input type="text" th:name = "id" th:value="${user.getId()}">
+    <input type="text" th:name ="name" th:value="${user.getUsername()}" >
+    <input type="text" th:name ="password" th:value="${user.getPassword()}" >
+    <input type="text" th:name ="money" th:value="${user.getMoney()}" >
+
+    <select  th:name="role"  size="1">
+        <option th:value="admin">ROLE_ADMIN</option>
+        <option  th:value="user">ROLE_USER</option>
+    <option th:selected="selected" th:text="${user.getAuthorities()}"></option>
     </select>
 
     <input type="submit" value="Обновить">
+
 </form>
 
-<p> ${UpdateUserException}</p>
+<p th:text= "${UpdateUserException}"></p>
 
 </body>
 </html>
