@@ -6,13 +6,13 @@
 </head>
 <body>
 
-Вы действительно хотите удалить пользователя ${param.id}?
-<form action="/admin/delete" method="post">
-<input type="hidden" name="id" value="${param.id}">
+ Вы действительно хотите удалить пользователя?
+<form action="/admin/delete" th:method="post">
 <input type="submit" value="Удалить">
 </form>
 
-<p> ${DeleteUserException}</p>
+<p th:text= "${DeleteUserException}"></p>
+
 
 </body>
 </html>

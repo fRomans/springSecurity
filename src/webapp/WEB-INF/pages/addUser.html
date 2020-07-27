@@ -2,24 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Добавить нового пользователя</title>
 </head>
 <body>
-<form action = "/admin/add" method="post">
-    <input required type="text" name="name" placeholder="имя">
-    <input required type="text" name="password" placeholder="пароль">
-    <input required type="text" name="money" placeholder="деньги">
-<%--    <input required type="text" name="role"  placeholder="доступ">--%>
-    <select name="role" size="1" placeholder="доступ">
-        <option value="admin">admin</option>
-        <option selected="selected" value="user">user</option>
+<form action="/admin/add" method="post">
+    <input required type="text" th:name="name" placeholder="имя">
+    <input required type="text" th:name="password" placeholder="пароль">
+    <input required type="text" th:name="money" placeholder="деньги">
+    <input required type="text" th:name="role" placeholder="доступ">
+    <select th:name="role" size="1" th:placeholder="доступ">
+        <option th:value="admin">admin</option>
+        <option th:selected="selected" th:value="user">user</option>
 
     </select>
-    <input type="submit" value="Сохранить">
+    <input type="submit" th:value="Сохранить">
 </form>
 
-<p> ${AddUserException}</p>
-<p> ${NumberFormatException}</p>
+<p th:text= "${AddUserException}"></p>
+<p th:text= "${NumberFormatException}"></p>
+
 </body>
 </html>

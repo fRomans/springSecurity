@@ -22,11 +22,11 @@
             <td th:text="${user.getAuthorities()}"></td>
             <td>
                 <form action = "/admin/update" method="get" >
-                    <input type="hidden" name="id" th:value="${user.getId()}">
+                    <input type="hidden" th:name="id" th:value="${user.getId()}">
                     <input type="submit" value="Изменить"  style="float:left">
                 </form>
                 <form action="/admin/delete" method="get">
-                    <input type="hidden" name="id" value="${user.getId()}">
+                    <input type="hidden" th:name="id" th:value="${user.getId()}">
                     <input type="submit" value="Удалить" style="float:left">
                 </form></td>
         </tr>
