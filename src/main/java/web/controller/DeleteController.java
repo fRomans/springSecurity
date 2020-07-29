@@ -18,12 +18,15 @@ public class DeleteController {
     private UserService service;
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
-    public String getDeletePage() {
+    public String getDeletePage(@RequestParam(value="deleteId") Long id, Model model1) {
+        User user = service.getUserById(id);
+        model1.addAttribute("user", user);
         return "deleteUser";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String getDeleteUser(@RequestParam Long id, Model model1) {
+
+    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
+    public String getDeleteUser(@RequestParam(value="deleteId") Long id, Model model1) {
         service.deleteUser(id);
         List<User> users = service.getListUsers();
         model1.addAttribute("users", users);

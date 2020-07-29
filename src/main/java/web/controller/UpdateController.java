@@ -20,7 +20,7 @@ public class UpdateController {
 
 
     @RequestMapping(value = "/admin/update", method = RequestMethod.GET)
-    public String getPage(@RequestParam Long id, Model model) {
+    public String getPage(@RequestParam(value="updataId") Long id, Model model) {
         User user = service.getUserById(id);
         model.addAttribute("user", user);
         return "updateUser";

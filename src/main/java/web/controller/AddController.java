@@ -24,7 +24,7 @@ public class AddController extends HttpServlet {
     }
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute User user, Model model) {
         service.addUser(user);
         List<User> users = service.getListUsers();
