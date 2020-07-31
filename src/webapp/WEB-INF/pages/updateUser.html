@@ -16,10 +16,13 @@
     <input type="text" th:name ="password" th:value="${user.getPassword()}" >
     <input type="text" th:name ="money" th:value="${user.getMoney()}" >
 
-    <select  th:name="role"  size="1">
-        <option th:value="admin">ROLE_ADMIN</option>
-        <option  th:value="user">ROLE_USER</option>
-    <option th:selected="selected" th:text="${user.getAuthorities()}"></option>
+    <select  name="role"  size="1">
+
+        <option th:each="role : ${user.getAuthorities()}"
+                th:text="${role}"
+                ></option>
+        <option >ROLE_USER</option>
+        <option >ROLE_ADMIN</option>
     </select>
 
     <input type="submit" value="Обновить">

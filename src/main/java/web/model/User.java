@@ -41,10 +41,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String password, Long money) {
+    public User(String name, String password, Long money,Set<Role> rolesfield) {
         this.name = name;
         this.password = password;
         this.money = money;
+        this.rolesfield = rolesfield;
     }
 
     public long getId() {
