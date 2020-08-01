@@ -30,7 +30,7 @@ public class AddController extends HttpServlet {
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role
             , Model model) {
-        user.setRoles(role);
+        user.setRoles(role) ;
         service.addUser(user);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
