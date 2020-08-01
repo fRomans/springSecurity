@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 import javax.servlet.http.HttpServlet;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -25,7 +28,9 @@ public class AddController extends HttpServlet {
 
 
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute User user, Model model) {
+    public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role
+            , Model model) {
+        user.setRoles(role);
         service.addUser(user);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);

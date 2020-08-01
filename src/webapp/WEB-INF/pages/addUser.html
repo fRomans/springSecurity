@@ -10,13 +10,12 @@
     <input required type="text" th:name="name" placeholder="имя">
     <input required type="text" th:name="password" placeholder="пароль">
     <input required type="text" th:name="money" placeholder="деньги">
-<!--    <input required type="text" th:name="role" placeholder="доступ">-->
-    <select th:name="role" size="1" th:placeholder="доступ">
+    <select th:name="role_id" size="1" >
         <option >ROLE_ADMIN</option>
-        <option th:selected="selected" >ROLE_USER</option>
+        <option  >ROLE_USER</option>
 
     </select>
-    <input type="submit" th:value="Сохранить">
+    <input type="submit" value="Сохранить">
 </form>
 
 <p th:text= "${AddUserException}"></p>
