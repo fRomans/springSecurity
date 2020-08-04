@@ -7,10 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UpdateController {
@@ -27,12 +29,16 @@ public class UpdateController {
     }
 
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String getUpdateUser(@ModelAttribute User user, Model model) {
+    @RequestMapping(value = "/admin/update", method = RequestMethod.POST)
+    public String getUpdateUser(@ModelAttribute User user, @RequestParam Set<Role> role
+            , Model model) {
+
+        user.setRoles(role);
         User userUpdate = service.getUserById(user.getId());
         userUpdate.setName(user.getUsername());
         userUpdate.setPassword(user.getPassword());
         userUpdate.setMoney(user.getMoney());
+        userUpdate.setRoles((Set<Role>) user.getAuthorities());
         service.updateUser(userUpdate);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
