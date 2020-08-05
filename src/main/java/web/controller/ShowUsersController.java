@@ -10,7 +10,7 @@ import web.service.UserService;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class ShowUsersController {
 
     @Autowired
     private UserService service;

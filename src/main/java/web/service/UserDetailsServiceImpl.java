@@ -63,5 +63,12 @@ public class UserDetailsServiceImpl implements UserService, UserDetailsService {
       return user;
    }
 
+   @Transactional
+   @Override
+   public User getUserByNameAndPassw(String name,String password){
+      User user = userDao.getUserByNameAndPassword(name,password);
+      return user;
+   }
+
 
 }

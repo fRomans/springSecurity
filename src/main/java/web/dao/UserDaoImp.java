@@ -59,5 +59,17 @@ public class UserDaoImp implements UserDao {
        // this.entityManager.refresh(this.entityManager.merge(user));
     }
 
+    @Override
+    public User getUserByNameAndPassword(String name,String password){
+        String sql = "select u from User u where u.name= :paramName and u.password=:paramPassword";
+
+        User user = (User) entityManager.createQuery(sql)
+                .setParameter("paramName", name)
+                .setParameter("paramPassword",password)
+                .getSingleResult();
+
+        return user;
+    }
+
 
 }
