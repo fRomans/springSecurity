@@ -1,12 +1,14 @@
 package web.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Component
 @Table(name = "roleSS")
 public class Role implements GrantedAuthority  {
 
