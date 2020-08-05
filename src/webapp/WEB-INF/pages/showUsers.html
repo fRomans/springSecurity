@@ -37,7 +37,7 @@
     <input type="submit"  value="Добавить нового пользователя">
 </form>
 <br><br>
-<a href="<c:url value='/logout' />">Logout</a>
+<a th:href="@{/logout}">Logout</a>
 
 <p th:text= "${SQLException}"></p>
 <p th:text= "${error}"></p>

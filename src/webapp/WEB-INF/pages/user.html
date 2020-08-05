@@ -11,7 +11,7 @@
 <p> ИМЯ:<h1 th:text="${user22.getUsername()}"></h1></p>
 <p> ПРАВА:<h1 th:text="${user22.getAuthorities()}"></h1></p>
 
-<a href="<c:url value='/logout' />">Logout</a>
+<a th:href="@{/logout}">Logout</a>
 
 </body>
 </html>
