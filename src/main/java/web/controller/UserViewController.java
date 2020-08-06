@@ -20,15 +20,18 @@ public class UserViewController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String getUserPage(Authentication authentication, Model model) {
+        String pageName = null;
         for (GrantedAuthority role : authentication.getAuthorities()) {
             if (!role.getAuthority().equals("ROLE_USER")) {
                 System.out.println("Без \"ROLE_USER\" нет доступа");
-                return "login";
+                pageName = "login";
             } else {
                 User user = (User) authentication.getPrincipal();
                 model.addAttribute("user22", user);
+                pageName = "user";
+                break;
             }
         }
-        return "user";
+        return pageName;
     }
 }

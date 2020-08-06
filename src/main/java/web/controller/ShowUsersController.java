@@ -21,14 +21,15 @@ public class ShowUsersController {
     private Role role;
 
     @RequestMapping("/admin") //url показа usera  в приложении(может не совпадать с url запуска сервера)
-    public String getIndex(Model model, Authentication authentication) {
-       //костыль для добавления роли еще одной
-        User user = (User) authentication.getPrincipal();
-        Set<Role> roles = (Set<Role>) user.getAuthorities();
-        role.setRole("ROLE_USER");
-        roles.add(role);
-        user.setRoles(roles);
-        service.updateUser(user);
+    public String getIndex(Model model) {
+        //,Authentication  authentication
+//                                              //костыль для добавления роли еще одной
+//        User user = (User) authentication.getPrincipal();
+//        Set<Role> roles = (Set<Role>) user.getAuthorities();
+//        role.setRole("ROLE_ADMIN");
+//        roles.add(role);
+//        user.setRoles(roles);
+//        service.updateUser(user);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
         return "showUsers";
