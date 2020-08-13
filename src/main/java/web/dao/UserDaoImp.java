@@ -40,11 +40,24 @@ public class UserDaoImp implements UserDao {
 
     }
 
+    public String findByUserPassword(String name) {
+        String sql = "select u from User u where u.password= :paramName";
+
+        User user = (User) entityManager.createQuery(sql)
+                .setParameter("paramName", name)
+                .getSingleResult();
+
+        return user.getPassword();
+
+    }
+
     @Override
     public User getUserById(long id) {
         User user1 =  entityManager.find(User.class, id);
         return user1;
     }
+
+
 
     @Override
     public void deleteUser(Long id) {

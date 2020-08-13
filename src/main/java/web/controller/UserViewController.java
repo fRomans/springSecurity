@@ -23,7 +23,6 @@ public class UserViewController {
         String pageName = null;
         for (GrantedAuthority role : authentication.getAuthorities()) {
             if (!role.getAuthority().equals("ROLE_USER")) {
-                System.out.println("Без \"ROLE_USER\" нет доступа");
                 pageName = "login";
             } else {
                 User user = (User) authentication.getPrincipal();

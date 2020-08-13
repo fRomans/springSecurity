@@ -2,6 +2,7 @@ package web.config;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import web.security.SecurityConfig;
 
 @Order(1)//очередь загрузки
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -9,7 +10,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
-                WebConfig.class,SecurityConfig.class
+                WebConfig.class, SecurityConfig.class
         };
     }
 

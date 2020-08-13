@@ -1,8 +1,13 @@
-package web.config;
+package web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import web.config.handler.LoginSuccessHandler;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import web.security.handler.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,7 +17,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import web.service.UserDetailsServiceImpl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -21,20 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsServiceImpl;
 
+
     public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsServiceImpl = userDetailsService;
     }
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
-       // auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
-    }
+         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(delegatingPasswordEncoder());
 
+   }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder delegatingPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -69,6 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 // защищенные URL
                 .antMatchers("/admin").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
+                // доступ к странице с ролью USER
+                //.antMatchers("/user").hasRole("USER")
     }
 
 

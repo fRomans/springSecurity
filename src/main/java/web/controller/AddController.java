@@ -32,9 +32,8 @@ public class AddController extends HttpServlet {
             , Model model) {
         user.setRoles(role) ;
         service.addUser(user);
-        List<User> users = service.getListUsers();
-        model.addAttribute("users", users);
-        return "showUsers";
+
+        return "redirect:/admin";//todo   привести  к такому виду!!!/
     }
 
 

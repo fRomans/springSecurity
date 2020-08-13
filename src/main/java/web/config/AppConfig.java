@@ -45,10 +45,10 @@ public class AppConfig {
     @Bean
     public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() {
 
-
+   // информирует jpa что исп-ся Hibernate
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(Boolean.parseBoolean(env.getProperty("hibernate.show_sql")));
-        adapter.setGenerateDdl(true);//????????????????//Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto"))
+        adapter.setGenerateDdl(true);//????????//Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto"))
         adapter.setDatabasePlatform(env.getProperty("hibernate.dialect"));
 
         return adapter;
@@ -61,6 +61,7 @@ public class AppConfig {
         entityManagerFactory.setDataSource(getDataSource());
         entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
         entityManagerFactory.setPackagesToScan("web.model");
+        //entityManagerFactory.setJpaProperties();
 
         return entityManagerFactory;
     }
