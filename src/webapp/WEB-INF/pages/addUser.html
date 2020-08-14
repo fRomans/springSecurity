@@ -10,12 +10,14 @@
     <input required type="text" th:name="name" placeholder="имя">
     <input required type="text" th:name="password" placeholder="пароль">
     <input required type="text" th:name="money" placeholder="деньги">
-    <select th:name="role_id" size="1" >
-        <option >ROLE_ADMIN</option>
-        <option  >ROLE_USER</option>
-        <option >ROLE_ADMIN,ROLE_USER</option>
 
-    </select>
+     <p>  <input id="role1" name="role_id" type="checkbox" value="ROLE_ADMIN" />
+        <label for="role1">ROLE_ADMIN</label></p>
+
+    <p></p><input id="role2" name="role_id" type="checkbox" value="ROLE_USER" />
+    <label for="role2">ROLE_USER</label></p>
+
+
     <input type="submit" value="Сохранить">
 </form>
 

@@ -1,23 +1,17 @@
 package web.config;
 
 
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import web.model.Role;
-import web.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -28,18 +22,50 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class AppConfig {
 
-    @Autowired
-    private Environment env;
+//    @Autowired
+//    private Environment env;           "${hibernate.dialect}"
+    @Value("${db.driver}")
+    private String dbdriver;
 
+    @Value("${db.url}")
+    String dburl;
+
+    @Value("${db.username}")
+    String dbusername;
+
+    @Value("${db.password}")
+    String dbpassword;
+
+    @Value("${hibernate.show_sql}")
+    String hibernateshowsql;
+
+    @Value("${hibernate.dialect}")
+    String hibernatedialect;
+
+    @Value("${hibernate.show_sql}")
+    String hibernateshowql;
+
+
+    @Value("${hibernate.hbm2ddl.auto}")
+    String hibernatehbm2ddlauto;
 
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setDriverClassName(dbdriver);
+        dataSource.setUrl(dburl);
+        dataSource.setUsername(dbusername);
+        dataSource.setPassword(dbpassword);
         return dataSource;
+    }
+
+    @Bean
+    public Properties getPropertyHibernate(){
+        Properties props = new Properties();
+        props.put("hibernate.show_sql", hibernateshowql);
+        props.put("hibernate.hbm2ddl.auto", hibernatehbm2ddlauto);
+        props.put("hibernate.dialect", hibernatedialect);
+        return props;
     }
 
     @Bean
@@ -47,10 +73,6 @@ public class AppConfig {
 
    // информирует jpa что исп-ся Hibernate
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-        adapter.setShowSql(Boolean.parseBoolean(env.getProperty("hibernate.show_sql")));
-        adapter.setGenerateDdl(true);//????????//Boolean.parseBoolean(env.getProperty("hibernate.hbm2ddl.auto"))
-        adapter.setDatabasePlatform(env.getProperty("hibernate.dialect"));
-
         return adapter;
     }
 
@@ -60,6 +82,7 @@ public class AppConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(getDataSource());
         entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter());
+        entityManagerFactory.setJpaProperties(getPropertyHibernate());
         entityManagerFactory.setPackagesToScan("web.model");
         //entityManagerFactory.setJpaProperties();
 
@@ -74,10 +97,10 @@ public class AppConfig {
         return transactionManager;
     }
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+//    @Bean
+//    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
 
 
 }

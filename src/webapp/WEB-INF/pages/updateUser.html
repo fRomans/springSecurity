@@ -15,15 +15,15 @@
     <input type="text" th:name ="password" th:value="${user.getPassword()}" >
     <input type="text" th:name ="money" th:value="${user.getMoney()}" >
 
-    <select  name="role"  size="1">
 
-        <option th:each="role : ${user.getAuthorities()}"
-                th:text="${role}"
-                ></option>
-        <option >ROLE_USER</option>
-        <option >ROLE_ADMIN</option>
-        <option >ROLE_ADMIN,ROLE_USER</option>
-    </select>
+
+        <p>  <input id="role1" name="role" type="checkbox" value="ROLE_ADMIN" />
+            <label for="role1">ROLE_ADMIN</label></p>
+
+        <p></p><input id="role2" name="role" type="checkbox" value="ROLE_USER" />
+        <label for="role2">ROLE_USER</label></p>
+
+
 
     <input type="submit" value="Обновить">
 
@@ -34,3 +34,12 @@
 
 </body>
 </html>
+
+<!--    <select  name="role"  size="1">-->
+<!--        <option th:each="role : ${user.getAuthorities()}"-->
+<!--                th:text="${role}"-->
+<!--                ></option>-->
+<!--        <option >ROLE_USER</option>-->
+<!--        <option >ROLE_ADMIN</option>-->
+<!--        <option >ROLE_ADMIN,ROLE_USER</option>-->
+<!--    </select>-->
