@@ -51,8 +51,6 @@ public class AdminController extends HttpServlet {
     @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
     public String getDeleteUser(@RequestParam(value="deleteId") Long id, Model model1) {
         service.deleteUser(id);
-        List<User> users = service.getListUsers();
-        model1.addAttribute("users", users);
         return "redirect:/admin";
     }
 
@@ -65,8 +63,7 @@ public class AdminController extends HttpServlet {
 
 
     @RequestMapping(value = "/admin/update", method = RequestMethod.POST)
-    public String getUpdateUser(@ModelAttribute User user, @RequestParam Set<Role> role
-            , Model model) {
+    public String getUpdateUser(@ModelAttribute User user, @RequestParam Set<Role> role) {
 
         user.setRoles(role);
         User userUpdate = service.getUserById(user.getId());
@@ -75,8 +72,6 @@ public class AdminController extends HttpServlet {
         userUpdate.setMoney(user.getMoney());
         userUpdate.setRoles((Set<Role>) user.getAuthorities());
         service.updateUser(userUpdate);
-        List<User> users = service.getListUsers();
-        model.addAttribute("users", users);
         return "redirect:/admin";
     }
 
