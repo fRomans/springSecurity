@@ -35,11 +35,9 @@ public class AdminController extends HttpServlet {
 
 
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role
-            , Model model) {
+    public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role) {
         user.setRoles(role) ;
         service.addUser(user);
-
         return "redirect:/admin";//todo   привести  к такому виду!!!/
     }
     @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
@@ -55,7 +53,7 @@ public class AdminController extends HttpServlet {
         service.deleteUser(id);
         List<User> users = service.getListUsers();
         model1.addAttribute("users", users);
-        return "showUsers";
+        return "redirect:/admin";
     }
 
     @RequestMapping(value = "/admin/update", method = RequestMethod.GET)
@@ -79,7 +77,7 @@ public class AdminController extends HttpServlet {
         service.updateUser(userUpdate);
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
-        return "showUsers";
+        return "redirect:/admin";
     }
 
 
