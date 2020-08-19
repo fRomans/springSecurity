@@ -41,22 +41,33 @@ public class AdminController extends HttpServlet {
         return "redirect:/admin";//todo   привести  к такому виду!!!/
     }
     @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
-    public String getDeletePage(@RequestParam(value="deleteId") Long id, Model model1) {
+    public String getDeletePage(@RequestParam(value="deleteId") Long id, Model model) {
         User user = service.getUserById(id);
-        model1.addAttribute("user", user);
+        model.addAttribute("user", user);
         return "deleteUser";
     }
 
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
-    public String getDeleteUser(@RequestParam(value="deleteId") Long id, Model model1) {
+    public String getDeleteUser(@RequestParam(value="deleteId") Long id) {
         service.deleteUser(id);
         return "redirect:/admin";
     }
 
     @RequestMapping(value = "/admin/update", method = RequestMethod.GET)
     public String getPage(@RequestParam(value="updataId") Long id, Model model) {
+        boolean adminTrue ;
+        boolean userTrue ;
         User user = service.getUserById(id);
+        for (Role role: user.getAuthorities()){
+        if (role.getAuthority().equals("ROLE_ADMIN")){
+            adminTrue = true;
+            model.addAttribute("adminTrueAttr",adminTrue);
+        }else if(role.getAuthority().equals("ROLE_USER")){
+            userTrue = true;
+            model.addAttribute("userTrueAttr",userTrue);
+        }
+        }
         model.addAttribute("user", user);
         return "updateUser";
     }

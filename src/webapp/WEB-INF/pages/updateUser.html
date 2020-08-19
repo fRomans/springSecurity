@@ -17,12 +17,19 @@
 
 
 
-        <p>  <input id="role1" name="role" type="checkbox" value="ROLE_ADMIN" />
-            <label for="role1">ROLE_ADMIN</label></p>
+        <td th:text="${adminTrueAttr}"></td>
+        <label>
+            <input type="checkbox" th:checked="${adminTrueAttr}"/> ROLE_ADMIN
+        </label>
+        <label>
+            <input type="checkbox" th:checked="${userTrueAttr}"/> ROLE_USER
+        </label>
 
-        <p></p><input id="role2" name="role" type="checkbox" value="ROLE_USER" />
-        <label for="role2">ROLE_USER</label></p>
+<!--        <p>  <input id="role1" name="role" type="checkbox" th:if="${role == 'ROLE_ADMIN'}" value="ROLE_ADMIN" />-->
+<!--            <label for="role1">ROLE_ADMIN</label></p>-->
 
+<!--        <p></p><input id="role2" name="role" type="checkbox" value="ROLE_USER" />-->
+<!--        <label for="role2">ROLE_USER</label></p>-->
 
 
     <input type="submit" value="Обновить">
