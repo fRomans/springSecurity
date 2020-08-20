@@ -17,25 +17,26 @@ import java.util.Set;
 
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController extends HttpServlet {
 
     @Autowired
     private UserService service;
 
-    @RequestMapping("/admin") //url показа usera  в приложении(может не совпадать с url запуска сервера)
+    @RequestMapping("") //url показа usera  в приложении(может не совпадать с url запуска сервера)
     public String getIndex(Model model) {
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
         return "showUsers";
     }
 
-    @RequestMapping(value = "/admin/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getPage() {
         return "addUser";
     }
 
 
-    @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role) {
         user.setRoles(role) ;
 
@@ -47,7 +48,7 @@ public class AdminController extends HttpServlet {
         service.addUser(user);
         return "redirect:/admin";//todo   привести  к такому виду!!!/
     }
-    @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String getDeletePage(@RequestParam(value="deleteId") Long id, Model model) {
         User user = service.getUserById(id);
         model.addAttribute("user", user);
@@ -55,13 +56,13 @@ public class AdminController extends HttpServlet {
     }
 
 
-    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String getDeleteUser(@RequestParam(value="deleteId") Long id) {
         service.deleteUser(id);
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/admin/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String getPage(@RequestParam(value="updataId") Long id, Model model) {
         boolean adminTrue ;
         boolean userTrue ;
@@ -80,7 +81,7 @@ public class AdminController extends HttpServlet {
     }
 
 
-    @RequestMapping(value = "/admin/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String getUpdateUser(@ModelAttribute User user, @RequestParam Set<Role> role) {
         String password;
         user.setRoles(role);
