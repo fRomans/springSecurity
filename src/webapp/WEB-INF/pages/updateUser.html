@@ -17,12 +17,11 @@
 
 
 
-        <td th:text="${adminTrueAttr}"></td>
         <label>
-            <input type="checkbox" th:checked="${adminTrueAttr}"/> ROLE_ADMIN
+            <input type="checkbox" name="role" th:checked="${adminTrueAttr}" value="ROLE_ADMIN"/> ROLE_ADMIN
         </label>
         <label>
-            <input type="checkbox" th:checked="${userTrueAttr}"/> ROLE_USER
+            <input type="checkbox" name="role" th:checked="${userTrueAttr}" value="ROLE_USER"/> ROLE_USER
         </label>
 
 <!--        <p>  <input id="role1" name="role" type="checkbox" th:if="${role == 'ROLE_ADMIN'}" value="ROLE_ADMIN" />-->
