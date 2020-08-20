@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en" >
+<html lang="en">
 <!--Content-Type: multipart/form-data; boundary=something-->
 <head>
     <title>Изменить данные пользователя</title>
@@ -10,32 +10,43 @@
 Редактировать пользователя:
 <form action="/admin/update" method="post">
 
-    <input type="hidden" th:name = "id" th:value="${user.getId()}">
-    <input type="text" th:name ="name" th:value="${user.getUsername()}" >
-    <input type="text" th:name ="password" th:value="${user.getPassword()}" >
-    <input type="text" th:name ="money" th:value="${user.getMoney()}" >
+    <input type="hidden" th:name="id" th:value="${user.getId()}">
+    <table border="1">
+        <tr>
+
+            <td>name</td>
+            <td>password</td>
+            <td>money</td>
+            <td>roles</td>
+        </tr>
+        <tr>
+            <td><input type="text" th:name="name" th:value="${user.getUsername()}" placeholder="имя"></td>
+            <td><input type="text" th:name="password"  placeholder="пароль"></td>
+            <td><input type="text" th:name="money" th:value="${user.getMoney()}" placeholder="деньги"></td>
 
 
+            <td><label>
+                <input type="checkbox" name="role" th:checked="${adminTrueAttr}" value="ROLE_ADMIN"/> ROLE_ADMIN
+            </label>
+                <label>
+                    <input type="checkbox" name="role" th:checked="${userTrueAttr}" value="ROLE_USER"/> ROLE_USER
+                </label>
+            </td>
+        </tr>
+    </table>
 
-        <label>
-            <input type="checkbox" name="role" th:checked="${adminTrueAttr}" value="ROLE_ADMIN"/> ROLE_ADMIN
-        </label>
-        <label>
-            <input type="checkbox" name="role" th:checked="${userTrueAttr}" value="ROLE_USER"/> ROLE_USER
-        </label>
+    <!--        <p>  <input id="role1" name="role" type="checkbox" th:if="${role == 'ROLE_ADMIN'}" value="ROLE_ADMIN" />-->
+    <!--            <label for="role1">ROLE_ADMIN</label></p>-->
 
-<!--        <p>  <input id="role1" name="role" type="checkbox" th:if="${role == 'ROLE_ADMIN'}" value="ROLE_ADMIN" />-->
-<!--            <label for="role1">ROLE_ADMIN</label></p>-->
-
-<!--        <p></p><input id="role2" name="role" type="checkbox" value="ROLE_USER" />-->
-<!--        <label for="role2">ROLE_USER</label></p>-->
+    <!--        <p></p><input id="role2" name="role" type="checkbox" value="ROLE_USER" />-->
+    <!--        <label for="role2">ROLE_USER</label></p>-->
 
 
     <input type="submit" value="Обновить">
 
 </form>
 
-<p th:text= "${UpdateUserException}"></p>
+<p th:text="${UpdateUserException}"></p>
 <a th:href="@{/logout}">Logout</a>
 
 </body>

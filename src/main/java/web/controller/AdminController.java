@@ -1,6 +1,7 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +38,12 @@ public class AdminController extends HttpServlet {
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute User user, @RequestParam(value = "role_id") Set<Role> role) {
         user.setRoles(role) ;
+
+        String password = user.getPassword();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
+
         service.addUser(user);
         return "redirect:/admin";//todo   привести  к такому виду!!!/
     }
@@ -75,11 +82,22 @@ public class AdminController extends HttpServlet {
 
     @RequestMapping(value = "/admin/update", method = RequestMethod.POST)
     public String getUpdateUser(@ModelAttribute User user, @RequestParam Set<Role> role) {
-
+        String password;
         user.setRoles(role);
         User userUpdate = service.getUserById(user.getId());
         userUpdate.setName(user.getUsername());
+        if (userUpdate.getPassword().equals(user.getPassword())){
+            userUpdate.setPassword(user.getPassword());
+        }else{
+                 password = user.getPassword();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
+        }
         userUpdate.setPassword(user.getPassword());
+
+
+
         userUpdate.setMoney(user.getMoney());
         userUpdate.setRoles((Set<Role>) user.getAuthorities());
         service.updateUser(userUpdate);
