@@ -23,7 +23,7 @@ public class AdminController extends HttpServlet {
     @Autowired
     private UserService service;
 
-    @RequestMapping("") //url показа usera  в приложении(может не совпадать с url запуска сервера)
+    @RequestMapping //url показа usera  в приложении(может не совпадать с url запуска сервера)
     public String getIndex(Model model) {
         List<User> users = service.getListUsers();
         model.addAttribute("users", users);
