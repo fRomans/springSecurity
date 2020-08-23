@@ -7,6 +7,9 @@
 </head>
 <body>
 <div>
+<!--представление /login настроено в SecurityConfig. Метод method="post" обязателен -->
+<!-- т.к обрабатывается методом post во внутреннейкухне springsecurity-->
+<!--    затем из формы (при успехе) проброс на обработчик-->
     <form method="post" action="/login">
         <input type="text" th:name="j_username"/>
         <input type="text" th:name="j_password"/>

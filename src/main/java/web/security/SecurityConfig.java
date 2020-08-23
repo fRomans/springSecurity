@@ -1,6 +1,7 @@
 package web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan("web")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
